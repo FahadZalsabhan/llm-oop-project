@@ -50,6 +50,8 @@ class ModelManager:
         model_type: ModelType = ModelType.CHAT,
     ) -> LanguageModel:
         """Return the smallest active model from the provider that has enough tokens."""
+        if type(required_tokens) is not int or required_tokens <= 0:
+            raise ValueError("Required tokens must be a positive integer.")
         candidates = [
             m
             for m in self.models.values()

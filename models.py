@@ -165,6 +165,8 @@ class GPTModel(LanguageModel, LoggingMixin):
     @property
     def api_key(self) -> str:
         """Return a masked version of the API key."""
+        if len(self.__api_key) <= 2:
+            return "*" * len(self.__api_key)
         return self.__api_key[:2] + "*" * (len(self.__api_key) - 2)
 
     def generate_response(self, prompt: str) -> str:
